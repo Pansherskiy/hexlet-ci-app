@@ -12,7 +12,7 @@ jobs:
       - name: install Make
         run: sudo apt-get install make
       - name: program setup
-        run: make setup | make start
+        run: make setup
       - name: run test
         run: make test
       - name: run linter
