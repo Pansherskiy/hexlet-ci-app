@@ -1,0 +1,20 @@
+name: hexlet-ci-app
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: install Node.js
+        uses: actions/setup-node@v2
+      - name: install nmp
+        run: npm install
+      - name: install Make
+        run: sudo apt-get install make
+      - name: program setup
+        run: make setup
+        run: make start
+      - name: run test
+        run: make test
+      - name: run linter
+        run: make lint
