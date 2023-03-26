@@ -1,27 +1,19 @@
-name: hexlet-ci-app
-on:
-  push:
-    branches:
-      - main
+name: Setup and check
+on: push
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Set Node.js 18.x
+        uses: actions/setup-node@v1
         with:
-          node-version: 18
-      - name: Run Snyk to check for vulnerabilities
+          node-version: '18.x' 
+          cache: 'npm' 
+      - run: make setup
+      - run: make lint
+      - run: make test
+      - name: Run Snyk
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      - name: install npm
-        run: npm install
-      - name: install Make
-        run: sudo apt-get update && sudo apt-get install -y make
-      - name: program setup
-        run: make setup
-      - name: run tests
-        run: make test
-      - name: run linter
-        run: make lint
