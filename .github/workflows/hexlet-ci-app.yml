@@ -3,16 +3,13 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
-    - name: Configuration of program environment.
-      steps:
-        - uses: actions/checkout@v3
-        - uses: actions/setup-node@v2
-        - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+      - name: Run Snyk to check for vulnerabilities
+      	uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-    - name: setup, test, linter
-      steps:
       - name: install nmp
         run: npm install
       - name: install Make
